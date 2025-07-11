@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dekaron Legacy</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: Arial, sans-serif;
+      height: 100%;
+      background: url('https://cdn.dekaron-rising.com/monthly_2023_05/IceCastle.png.4fcafded1c690d015a5b4c2747c388d8.png') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    header {
+      background-color: rgba(17, 17, 17, 0.8);
+      color: #ffa500;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero button,
+    .hero a {
+      background-color: #ffa500;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #000;
+      text-decoration: none;
+      z-index: 2;
+    }
+
+    .hero a:hover {
+      opacity: 0.9;
+    }
+
+    .ranking-toggle-btn {
+      position: fixed;
+      top: 5px;
+      right: 25px;
+      background: #ffa500;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 1001;
+      box-shadow: 0 0 8px rgba(0,0,0,0.4);
+    }
+
+    .ranking {
+      background-color: rgba(17, 17, 17, 0.8);
+      color: white;
+      text-align: left;
+      padding: 20px;
+      position: fixed;
+      top: 120px;
+      right: 0;
+      width: 300px;
+      height: calc(100% - 160px);
+      overflow-y: auto;
+      border-left: 2px solid #ffa500;
+      box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+      scroll-behavior: smooth;
+      transition: transform 0.3s ease;
+    }
+
+    .ranking.hidden {
+      transform: translateX(100%);
+    }
+
+    .ranking h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .ranking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .rank-item {
+      background-color: #222;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .rank-item:hover {
+      transform: translateX(-5px);
+    }
+
+    .sound-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: #ffa500;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Player embutido do YouTube com playlist de Akon -->
+  <div style="position: fixed; bottom: 100px; left: 20px; z-index: 1000; box-shadow: 0 0 10px rgba(0,0,0,0.6);">
+    <iframe id="yt-player" src="https://www.youtube.com/embed/videoseries?list=PL-THggYr1c4aCmHDDxhvX2TVKeLfcI7cMenablejsapi=1"
+      title="Playlist Akon" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+
+  <button class="ranking-toggle-btn" onclick="toggleRanking()">📊 Ranking PVP</button>
+  <header>
+    <div class="logo">Dekaron Legacy</div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-content">
+      <button>Download</button>
+      <a href="#">Registrador</a>
+      <a href="#">Discord</a>
+      <a href="#">Doar</a>
+      <a href="#">Vote</a>
+    </div>
+  </div>
+
+  <section class="ranking" id="rankingPanel">
+    <h2>Ranking PVP </h2>
+    <div class="ranking-list">
+      <div class="rank-item">#1 - Jogador - Nível 230</div>
+      <div class="rank-item">#2 - Jogador - Nível 230</div>
+      <div class="rank-item">#3 - Jogador - Nível 230</div>
+      <div class="rank-item">#4 - Jogador - Nível 230</div>     
+      <div class="rank-item">#5 - Jogador - Nível 230</div>
+      <div class="rank-item">#6 - Jogador - Nível 230</div>
+      <div class="rank-item">#7 - Jogador - Nível 230</div>
+      <div class="rank-item">#8 - Jogador - Nível 230</div>   
+      <div class="rank-item">#9 - Jogador - Nível 230</div>
+      <div class="rank-item">#10 - Jogador - Nível 230</div>
+    </div> 
+  </section>
+    </div> 
+  </section>
+  <script>
+  // Carrega a API do YouTube
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('yt-player', {
+      events: {
+        'onReady': onPlayerReady
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    window.playerReady = true;
+  }
+
+  function toggleSound() {
+    if (window.player && window.playerReady) {
+      const state = player.getPlayerState();
+      if (state === YT.PlayerState.PLAYING) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
+    } else {
+      alert("Player ainda não carregado.");
+    }
+  }
+
+  function toggleRanking() {
+    const panel = document.getElementById('rankingPanel');
+    panel.classList.toggle('hidden');
+  }
+</script>
+
+</body>
+</html>
